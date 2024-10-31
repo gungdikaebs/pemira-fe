@@ -1,0 +1,259 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700&display=swap");
+
+:root {
+    --main-color: #274598;
+    --secondary-color: #0d6efd;
+    --bg-color: #f4f7fa;
+    --accent: #0b0c0e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Source Code Pro", monospace;
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
+#comingsoon {
+    width: 100%;
+    height: 100%;
+    background: url(../img/bg2.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: var(--bg-color);
+}
+
+#hero {
+    width: 100%;
+    height: 100%;
+    padding: 50px auto;
+    background-color: var(--bg-color);
+}
+
+#calon {
+    width: 100%;
+    height: auto;
+    background-color: var(--bg-color);
+}
+
+#profile {
+    width: 100%;
+    height: auto;
+    background-color: var(--bg-color);
+}
+
+.bg-white {
+    background-color: #fff;
+}
+
+.img-side-top {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.img-side-bottom {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+
+.display-text {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 100px;
+    line-height: 125px;
+}
+
+.heading-1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 91px;
+    line-height: 111px;
+}
+
+.heading-2 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 49px;
+}
+
+.heading-2-bold {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 49px;
+}
+
+.paragraf {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 140%;
+}
+
+.paragraf-2 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+}
+
+.main-color {
+    color: var(--main-color);
+}
+
+.second-color {
+    color: var(--secondary-color);
+}
+
+.text-shadow {
+    text-shadow: 0px 12px 8px rgba(0, 0, 0, 0.25);
+}
+
+.btn-main {
+    background: var(--main-color);
+    border-radius: 9px;
+    color: #fff;
+    margin-top: 15px;
+}
+
+.btn-main:hover {
+    border: 2px solid var(--main-color);
+    color: var(--main-color);
+}
+
+.btn-primary {
+    background: var(--main-color);
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: transparent;
+    border: 2px solid var(--main-color);
+    color: var(--main-color);
+}
+
+.card {
+    border: none;
+    filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.1));
+}
+
+.card-title {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+    margin: 15px 0;
+}
+
+.label {
+    width: 50px;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #fff;
+}
+
+.label h3 {
+    background-color: var(--main-color);
+    font-size: 22px;
+}
+
+.calon {
+    color: #666;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0em;
+}
+
+.vote {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0em;
+    color: #666;
+}
+
+.card-img {
+    clip-path: polygon(10% 25%,
+            35% 25%,
+            35% 0%,
+            65% 0%,
+            65% 25%,
+            90% 25%,
+            90% 50%,
+            65% 50%,
+            65% 100%,
+            35% 100%,
+            35% 50%,
+            10% 50%);
+    border: 2px solid var(--main-color);
+}
+
+.card-content {
+    margin: 20px 0;
+}
+
+.identitas-image {
+    width: 195px;
+    height: auto;
+}
+
+.identitas-image img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* phone */
+@media (max-width: 576px) {
+    .display-text {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 75px;
+        line-height: 100px;
+    }
+
+    .heading-1 {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 65px;
+        margin: 15px 0;
+    }
+
+    .paragraf-2 {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 160%;
+        text-align: justify;
+    }
+
+    .img-side-top {
+        position: absolute;
+        width: 110px;
+        height: 110px;
+        top: 0px;
+        right: 0px;
+    }
+
+    .img-side-bottom {
+        position: absolute;
+        width: 247px;
+        height: 200px;
+        bottom: 0px;
+        left: 0;
+    }
+}
