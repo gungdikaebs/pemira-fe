@@ -1,15 +1,16 @@
 <script setup>
-import { loginWithPopup } from '@/utils/auth';
+import { useAuthStore } from '@/stores/authStore';
 import { msalInstance } from '@/utils/auth';
 import { onMounted } from 'vue';
 
-onMounted(async () => {
-  try {
-    await msalInstance.initialize();
-  } catch (error) {
-    console.error('MSAL initialization error:', error);
-  }
-});
+const authStore = useAuthStore();
+// onMounted(async () => {
+//   try {
+//     await msalInstance.initialize();
+//   } catch (error) {
+//     console.error('MSAL initialization error:', error);
+//   }
+// });
 
 </script>
 
@@ -29,7 +30,7 @@ onMounted(async () => {
               <div class="alert alert-warning col-12 col-md-6 offset-0 offset-md-3" role="alert">
                 Untuk melakukan voting, silahkan login terlebih dahulu dengan akun Microsoft anda.
                 <br>
-                <button @click="loginWithPopup" class="btn btn-main">LOGIN AKUN MICROSOFT</button>
+                <button @click="authStore.loginWithPopup()" class="btn btn-main">LOGIN AKUN MICROSOFT</button>
                 <br>
                 <p style="font-size: 12px">gunakan akun microsoft yang terdaftar di STIKOM BALI
                   <br>

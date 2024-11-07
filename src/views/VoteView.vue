@@ -4,14 +4,21 @@ import { apiFetch } from '@/utils/apiFetch'
 import ModalVisiMisi from '@/components/ModalVisiMisi.vue';
 import BigCard from '@/components/BigCard.vue';
 import SmallCard from '@/components/SmallCard.vue';
+import { useAuthStore } from '@/stores/authStore';
+const BaseUrl = import.meta.env.VITE_PUBLIC_BASEURL;
+
+
+const authStore = useAuthStore()
+console.log(authStore.user);
 
 // State to hold the products and the currently selected product for the modal
-const products = ref([])
+const candidates = ref([])
 const productModal = ref(null) // This will hold the selected product for the modal
 
 // Fetch products on component mount
-apiFetch.get('https://dummyjson.com/products?limit=5').then((res) => {
-  products.value = res.products
+apiFetch.get(`${BaseUrl}/admin/v1/candidates`).then((res) => {
+  candidates.value = res.products
+  console.log(candidates.value);
 })
 
 // Function to load selected product details into the modal
@@ -44,7 +51,7 @@ const modalClick = (product) => {
           <h3 class="heading-2 main-color text-center">CAPRESMA & CAWAPRESMA BEM PM</h3>
         </div>
         <!-- Loop over the products -->
-        <BigCard :data="products"></BigCard>
+        <BigCard></BigCard>
         <ModalVisiMisi :product="productModal" />
       </div>
       <div class="row py-5" id="balma">
@@ -60,6 +67,9 @@ const modalClick = (product) => {
     <div class="card-body text-center">
       <p>Tekan tombol di bawah ini jika sudah melakukan voting, anda masih bisa merubah pilihan sebelum menekan tombol
         ini</p>
+      <h1>
+        <a href="" @click="authStore.logout">P LOGOUT</a>
+      </h1>
       <button type="submit" class="btn btn-success w-auto" data-bs-toggle="modal" data-bs-target="#summaryModal">Gunakan
         hak suara saya!</button>
     </div>
