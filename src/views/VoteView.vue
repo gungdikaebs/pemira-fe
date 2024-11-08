@@ -1,28 +1,50 @@
 <script setup>
 import { ref } from 'vue'
 import { apiFetch } from '@/utils/apiFetch'
-import ModalVisiMisi from '@/components/ModalVisiMisi.vue'
 import BigCard from '@/components/BigCard.vue'
 import SmallCard from '@/components/SmallCard.vue'
 import { useAuthStore } from '@/stores/authStore'
+import ModalVisiMisi from '@/components/ModalVisiMisi.vue'
 
 const authStore = useAuthStore()
 const accessToken = localStorage.getItem('accessToken')
-console.log(authStore.user)
 
 // State to hold the products and the currently selected product for the modal
 const candidates = ref([])
-const productModal = ref(null) // This will hold the selected product for the modal
+const newCandidates = ref({
+  BEM: [],
+  DPM: [],
+  'HIMA SI': [],
+  'HIMA SK': [],
+  'HIMA TI': [],
+  'HIMA BD': [],
+  HIMAS: []
+})
+const studentCouncils = ref([])
 
-apiFetch.get('/api/admin/v1/candidates', { Authorization: `Bearer ${accessToken}` }).then((res) => {
-  candidates.value = res.data
+Promise.all([
+  apiFetch
+    .get('/api/admin/v1/candidates', { Authorization: `Bearer ${accessToken}` })
+    .then((res) => {
+      candidates.value = res.data
+    }),
+  apiFetch
+    .get('/api/admin/v1/student-councils', { Authorization: `Bearer ${accessToken}` })
+    .then((res) => {
+      studentCouncils.value = res.data
+    })
+]).then(() => {
+  studentCouncils.value.forEach((council) => {
+    newCandidates.value[council.type] = candidates.value.filter(
+      (candidate) => candidate.studentCouncilId === council.id
+    )
+  })
 })
 
-// Function to load selected product details into the modal
-const modalClick = (product) => {
-  apiFetch.get(`https://dummyjson.com/products/${product.id}`).then((res) => {
-    productModal.value = res // Set the clicked product details to productModal
-  })
+// check what card is clicked and set the data to be passed to the modal
+const dataModal = ref({})
+const modalClick = (data) => {
+  dataModal.value = data
 }
 </script>
 
@@ -47,15 +69,23 @@ const modalClick = (product) => {
         <div class="col-12 py-3">
           <h3 class="heading-2 main-color text-center">CAPRESMA & CAWAPRESMA BEM PM</h3>
         </div>
-        <!-- Loop over the products -->
-        <BigCard></BigCard>
-        <ModalVisiMisi :product="productModal" />
+        <BigCard
+          v-for="candidate in newCandidates.BEM"
+          :key="candidate"
+          :data="candidate"
+          @modalClick="modalClick(candidate)"
+        ></BigCard>
       </div>
       <div class="row py-5" id="balma">
         <div class="col-12 py-3">
           <h3 class="heading-2 main-color text-center">CALON LEGISLATIF DPM PM</h3>
         </div>
-        <SmallCard></SmallCard>
+        <SmallCard
+          v-for="candidate in newCandidates.DPM"
+          :key="candidate"
+          :data="candidate"
+          @modalClick="modalClick(candidate)"
+        ></SmallCard>
       </div>
     </div>
   </section>
@@ -79,4 +109,6 @@ const modalClick = (product) => {
       </button>
     </div>
   </div>
+
+  <ModalVisiMisi :data="dataModal" />
 </template>
