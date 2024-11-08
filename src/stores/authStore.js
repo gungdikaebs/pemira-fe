@@ -45,7 +45,6 @@ export const useAuthStore = defineStore({
 
         if (idToken) {
           const response = await apiFetch.post('/api/v1/auth/microsoft', {}, { idToken })
-          console.log('Response:', response)
 
           if (response.data) {
             this.user = response.data
@@ -66,6 +65,14 @@ export const useAuthStore = defineStore({
 
             console.log('Generated JWT Token:', token)
             localStorage.setItem('token', token)
+            localStorage.setItem('accessToken', response.data.accessToken)
+            await apiFetch.post(
+              '/api//v1/auth/renew-session',
+              {
+                Authorization: `Bearer ${response.data.accessToken}`
+              },
+              { refreshToken: response.data.refreshToken }
+            )
             router.push(this.returnUrl || '/vote')
           } else {
             console.error('JWT token not found in response')
@@ -75,9 +82,11 @@ export const useAuthStore = defineStore({
         console.error('Error during login:', error)
       }
     },
-    logout() {
+    async logout() {
       this.user = null
       localStorage.removeItem('token')
+      localStorage.removeItem('accessToken')
+      await apiFetch.delete('/api/v1/auth/revoke-session')
       router.push('/')
     }
   },
